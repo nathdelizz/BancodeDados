@@ -3,25 +3,34 @@ package com.example.bancodedados;
 public class Usuario {
     private String nomeUsuario;
     private String emailUsuario;
+    private int idUsuario;
 
+    public Usuario() {}
     public Usuario(String nomeUsuario, String emailUsuario) {
         this.nomeUsuario = nomeUsuario;
         this.emailUsuario = emailUsuario;
+        this.idUsuario = idUsuario;
     }
 
-    public String getEmailUsuario() {
+    protected String getEmailUsuario() {
         return emailUsuario;
     }
-
-    public void setEmailUsuario(String emailUsuario) {
+    protected void setEmailUsuario(String emailUsuario) {
         this.emailUsuario = emailUsuario;
     }
 
-    public String getNomeUsuario() {
+    protected String getNomeUsuario() {
         return nomeUsuario;
     }
 
-    public void setNomeUsuario(String nomeUsuario) {
+    protected void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
+    }
+    protected int getidUsuario() {
+        return idUsuario;
+    }
+
+    protected void setIdUsuario(String nomeUsuario) {
+        this.idUsuario = idUsuario;
     }
 }
