@@ -5,7 +5,7 @@ public class Usuario {
     private String emailUsuario;
     private int idUsuario;
 
-    public Usuario() {}
+    public Usuario(int i, String s, String toString) {}
     public Usuario(String nomeUsuario, String emailUsuario) {
         this.nomeUsuario = nomeUsuario;
         this.emailUsuario = emailUsuario;

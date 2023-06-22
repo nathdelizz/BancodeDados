@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button AtualizarUsuario;
     EditText ETnome;
     EditText ETemail;
-    EditText ETident;
+    TextView ETident;
     ListView lvUsuarios;
 
 
@@ -32,16 +33,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         AddUsuario= findViewById(R.id.AddUsuario);
-        ListaUsuario = findViewById(R.id.Listasuarios);
+        ListaUsuario = findViewById(R.id.ListaUsuario);
         AtualizarUsuario = findViewById(R.id.AtualizarUsuario);
         ETemail= findViewById(R.id.ETemail);
         ETnome= findViewById(R.id.ETnome);
-        ETident= findViewById(R.id.Etident);
-        lvUsuario = findViewById(R.id.lv_usuarios);
+        ETident= findViewById(R.id.ETident);
 
 
         acessoBD = new BancodeDados(MainActivity.this);
@@ -54,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
                 Usuario usuario = null;
 
                 try {
-                    usuario = new Usuario(-1
+                    usuario = new Usuario(-1,
                             ETnome.getText().toString(),
                             ETemail.getText().toString());
                     boolean sucesso = acessoBD.adicionarUsuario(usuario);
-                    Toast.makeText(MainActivity.this, "Sucesso:" + sucesso, Toast.LENGTH_SHORT.show();
+                    Toast.makeText(MainActivity.this, "Sucesso:" + sucesso, Toast.LENGTH_SHORT).show();
                 } catch (NumberFormatException e) {
                     Toast.makeText(MainActivity.this, "Erro na criação do usuário", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
@@ -76,20 +75,6 @@ public class MainActivity extends AppCompatActivity {
      }
  });
 
-    lvUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-            System.out.println("Captou click na lista!");
-            Usuario usuarioClicado = (Usuario) parent.getItemPosition(position);
-            boolean excluiu = acessoBD.excluirUsuario(usuarioClicado)
-
-        mostrarUsuariosNaListView(acessoBD);
-
-        Toast.makeText(MainActivity.this, "Usuário excluído(" + excluiu +"):" + usuarioClicado.toString(), Toast.LENGTH_SHORT).show();
-
-        }
-    });
 
      AtualizarUsuario.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -106,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Erro na conversão de uma String para int: Idade não corresponde a número!", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Erro na criação do usuário!", Toast.LENGTH_LONG).show();
-            usuario = new Usuario(-1, "erro", 0);
+            usuario = new Usuario(-1, "erro", "Email");
         }
          }
      });

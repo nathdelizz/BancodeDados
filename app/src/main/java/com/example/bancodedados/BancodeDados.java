@@ -23,7 +23,8 @@ public class BancodeDados extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        String statement = "CREATE TABLE" + TABELA_USUARIO +
+        //CREATE TABLE TABELA_USUARIO
+        String statement = "CREATE TABLE " + TABELA_USUARIO +
                 " (" + USUARIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + USUARIO_NOME + " TEXT, " + USUARIO_EMAIL + " TEXT)";
 
@@ -80,21 +81,37 @@ public class BancodeDados extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
-                    int usuarioCod = cursor.getInt(0);
+                    int usuarioIdent = cursor.getInt(0);
                     String usuarioNome = cursor.getString(1);
-                    int usuarioEmail = cursor.getInt(2);
+                    String usuarioEmail = cursor.getString(2);
 
-                    Usuario usuario = new Usuario(usuarioCod, usuarioNome, usuarioEmail);
+                    Usuario usuario = new Usuario(usuarioIdent, usuarioNome, usuarioEmail);
                     listaUsuarios.add(usuario);
                 } while (cursor.moveToNext());
             } else {
 
             }
 
-
+        cursor.close();
         }
         db.close();
+
         return listaUsuarios;
     }
+   public boolean excluirUsuario(Usuario usuario){
+       SQLiteDatabase db = this.getWritableDatabase();
+       String queryString =
+               "DELETE FROM " + TABELA_USUARIO + " WHERE " + USUARIO_ID + " = " + usuario.getidUsuario();
+
+       Cursor cursor = db.rawQuery(queryString, null);
+
+       if (cursor.moveToFirst()) {
+           return true;
+       } else {
+           return false;
+       }
+
+
+   }
 
 }
